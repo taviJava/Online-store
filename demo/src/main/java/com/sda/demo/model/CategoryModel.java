@@ -1,13 +1,21 @@
 package com.sda.demo.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "category")
 public class CategoryModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @ManyToOne(fetch = FetchType.EAGER)
     private CategoryModel parent;
-    private List<CategoryModel> subcategories =  new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+    private List<CategoryModel> subcategories;
 
     public Long getId() {
         return id;
