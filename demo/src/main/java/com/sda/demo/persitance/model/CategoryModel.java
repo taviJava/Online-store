@@ -1,4 +1,4 @@
-package com.sda.demo.persistance.model;
+package com.sda.demo.persitance.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
