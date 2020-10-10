@@ -1,7 +1,6 @@
-package com.sda.demo.model;
+package com.sda.demo.persistance.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
