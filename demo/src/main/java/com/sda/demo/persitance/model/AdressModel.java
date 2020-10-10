@@ -18,6 +18,9 @@ private String city;
 
 private String country;
 
+@OneToOne(mappedBy = "adressModel")
+private UserModel userModel;
+
     public Long getId() {
         return id;
     }
