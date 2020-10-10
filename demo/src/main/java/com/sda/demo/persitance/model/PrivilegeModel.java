@@ -1,0 +1,39 @@
+package com.sda.demo.persitance.model;
+
+import javax.persistence.*;
+import java.util.List;
+
+public class PrivilegeModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "privilegeList")
+    private List<RoleModel> rolelist;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<RoleModel> getRolelist() {
+        return rolelist;
+    }
+
+    public void setRolelist(List<RoleModel> rolelist) {
+        this.rolelist = rolelist;
+    }
+}
