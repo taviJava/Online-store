@@ -1,6 +1,5 @@
 package com.sda.demo.persitance.model;
 
-import com.sda.demo.UserModel;
 import org.apache.catalina.User;
 
 import javax.persistence.*;
@@ -30,7 +29,7 @@ public class RoleModel {
                     name = "role_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "user_id",referencedColumnName = "id"))
-    private List<UserModel> userList;
+    private List<User> userList;
 
     public long getId() {
         return id;
@@ -56,11 +55,11 @@ public class RoleModel {
         this.privilegeList = privilegeList;
     }
 
-    public List<UserModel> getUserList() {
+    public List<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<UserModel> userList) {
+    public void setUserList(List<User> userList) {
         this.userList = userList;
     }
 }
