@@ -1,6 +1,7 @@
 package com.sda.demo.persistance.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,8 @@ public class CategoryModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private CategoryModel parent;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
-    private List<CategoryModel> subcategories;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
+    private List<CategoryModel> subcategories = new ArrayList<>();
 
     public Long getId() {
         return id;
