@@ -1,8 +1,5 @@
 package com.sda.demo.persitance.model;
 
-import com.sda.demo.UserModel;
-import org.apache.catalina.User;
-
 import javax.persistence.*;
 import java.util.List;
 
