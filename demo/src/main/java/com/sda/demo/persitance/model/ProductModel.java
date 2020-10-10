@@ -19,6 +19,8 @@ public class ProductModel {
     private ProductType productType;
     @ManyToOne(cascade = CascadeType.ALL)
     private CategoryModel category;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private ManufacturerModel manufacturer;
 
     public OrderLineModel getOrderline() {
         return orderline;
