@@ -17,6 +17,7 @@ public class ProductModel {
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private CategoryModel category;
 
