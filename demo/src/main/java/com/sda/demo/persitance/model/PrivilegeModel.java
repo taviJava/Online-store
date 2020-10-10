@@ -2,7 +2,7 @@ package com.sda.demo.persitance.model;
 
 import javax.persistence.*;
 import java.util.List;
-
+@Entity
 public class PrivilegeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,7 +10,7 @@ public class PrivilegeModel {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "privilegeList")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "privileges")
     private List<RoleModel> rolelist;
 
     public long getId() {

@@ -18,7 +18,7 @@ public class ProductModel {
     @Enumerated(EnumType.STRING)
     private ProductType productType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     private CategoryModel category;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private ManufacturerModel manufacturer;
@@ -85,5 +85,13 @@ public class ProductModel {
 
     public void setProductType(ProductType productType) {
         this.productType = productType;
+    }
+
+    public ManufacturerModel getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(ManufacturerModel manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

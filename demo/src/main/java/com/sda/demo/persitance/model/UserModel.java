@@ -2,13 +2,13 @@ package com.sda.demo.persitance.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sda.demo.persitance.model.AdressModel;
-import com.sda.demo.persitance.model.RoleModel;
+
 
 import javax.persistence.*;
 import java.util.List;
-
-public class User {
+@Entity
+@Table(name = "user")
+public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,11 @@ public class User {
 
     private String url;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 
-    private AdressModel adressModel;
+    private AdressModel adress;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "userList")
-
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<RoleModel> roleList;
 
 
@@ -75,12 +74,12 @@ public class User {
         this.url = url;
     }
 
-    public AdressModel getAdressModel() {
-        return adressModel;
+    public AdressModel getAdress() {
+        return adress;
     }
 
-    public void setAdressModel(AdressModel adressModel) {
-        this.adressModel = adressModel;
+    public void setAdress(AdressModel adress) {
+        this.adress = adress;
     }
 
     public List<RoleModel> getRoleList() {

@@ -9,7 +9,7 @@ public class ManufacturerModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToOne(mappedBy = "manufacturer")
     private ProductModel product;
 
     public long getId() {

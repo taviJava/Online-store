@@ -2,7 +2,7 @@ package com.sda.demo.persitance.model;
 
 import javax.persistence.*;
 import java.util.List;
-
+@Entity
 public class RoleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,14 +10,8 @@ public class RoleModel {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "roles_privileges",
-            joinColumns = @JoinColumn(
-                    name = "role_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "privilege_id",referencedColumnName = "id"))
-        private List<PrivilegeModel>privilegeList;
+    @ManyToMany(fetch = FetchType.EAGER)
+        private List<PrivilegeModel> privileges;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -27,7 +21,7 @@ public class RoleModel {
                     name = "role_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "user_id",referencedColumnName = "id"))
-    private List<UserModel> userList;
+    private List<UserModel> users;
 
     public long getId() {
         return id;
@@ -45,19 +39,19 @@ public class RoleModel {
         this.name = name;
     }
 
-    public List<PrivilegeModel> getPrivilegeList() {
-        return privilegeList;
+    public List<PrivilegeModel> getPrivileges() {
+        return privileges;
     }
 
-    public void setPrivilegeList(List<PrivilegeModel> privilegeList) {
-        this.privilegeList = privilegeList;
+    public void setPrivileges(List<PrivilegeModel> privileges) {
+        this.privileges = privileges;
     }
 
-    public List<UserModel> getUserList() {
-        return userList;
+    public List<UserModel> getUsers() {
+        return users;
     }
 
-    public void setUserList(List<UserModel> userList) {
-        this.userList = userList;
+    public void setUsers(List<UserModel> users) {
+        this.users = users;
     }
 }
