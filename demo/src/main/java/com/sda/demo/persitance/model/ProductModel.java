@@ -12,9 +12,29 @@ public class ProductModel {
     private String photo;
     private String description;
     private double price;
-    
+    @OneToOne(cascade = CascadeType.ALL)
+    private OrderLineModel orderline;
+
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CategoryModel category;
+
+    public OrderLineModel getOrderline() {
+        return orderline;
+    }
+
+    public void setOrderline(OrderLineModel orderline) {
+        this.orderline = orderline;
+    }
+
+    public CategoryModel getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryModel category) {
+        this.category = category;
+    }
 
     public long getId() {
         return id;

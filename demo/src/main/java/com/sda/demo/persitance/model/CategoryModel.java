@@ -16,6 +16,16 @@ public class CategoryModel {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<CategoryModel> subcategories = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "product")
+    private List<ProductModel> products;
+
+    public List<ProductModel> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductModel> products) {
+        this.products = products;
+    }
 
     public Long getId() {
         return id;
