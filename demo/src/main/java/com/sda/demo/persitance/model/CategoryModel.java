@@ -11,11 +11,13 @@ public class CategoryModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private CategoryModel parent;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<CategoryModel> subcategories = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "product")
     private List<ProductModel> products;
 
