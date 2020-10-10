@@ -1,4 +1,4 @@
-package com.sda.demo;
+package com.sda.demo.persitance.model;
 
 import javax.persistence.*;
 
