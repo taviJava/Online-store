@@ -15,7 +15,7 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private List<CategoryDto> getCategories(){
+    public List<CategoryDto> getCategories(){
         List<CategoryModel> categories = categoryRepository.findAll();
          List<CategoryDto> categoriesDto = new ArrayList<>();
          for (CategoryModel categoryModel: categories){
@@ -36,7 +36,7 @@ public class CategoryService {
          return categoriesDto;
     }
 
-    private void add(CategoryDto categoryDto){
+    public void add(CategoryDto categoryDto){
         CategoryModel categoryModel = new CategoryModel();
         categoryModel.setName(categoryDto.getName());
         List<CategoryModel> subCategories = new ArrayList<>();
