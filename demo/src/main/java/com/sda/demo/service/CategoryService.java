@@ -21,15 +21,7 @@ public class CategoryService {
              CategoryDto categoryDto = new CategoryDto();
              categoryDto.setId(categoryModel.getId());
              categoryDto.setName(categoryModel.getName());
-             for (ProductModel productModel: categoryModel.getProducts()){
-                 ProductDto productDto = new ProductDto();
-                 productDto.setId(productModel.getId());
-                 productDto.setName(productModel.getName());
-                 productDto.setDescription(productModel.getDescription());
-                 productDto.setPhoto(productModel.getPhoto());
-                 productDto.setPrice(productModel.getPrice());
-                 categoryDto.getProducts().add(productDto);
-             }
+            
              categoriesDto.add(categoryDto);
          }
          return categoriesDto;
