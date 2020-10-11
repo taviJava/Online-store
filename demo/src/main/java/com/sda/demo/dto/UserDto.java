@@ -1,8 +1,5 @@
 package com.sda.demo.dto;
 
-import com.sda.demo.persitance.model.AdressModel;
-import com.sda.demo.persitance.model.RoleModel;
-
 import java.util.List;
 
 public class UserDto {
@@ -63,7 +60,11 @@ public class UserDto {
         this.roleList = roleList;
     }
 
-    public AddressDto getAdress() { return adress; }
+    public AddressDto getAdress() {
+        return adress;
+    }
 
-    public void setAdress(AddressDto adress) { this.adress = adress; }
+    public void setAdress(AddressDto adress) {
+        this.adress = adress;
+    }
 }
