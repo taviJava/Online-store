@@ -12,7 +12,7 @@ public class UserDto {
     private String newPassword;
     private String email;
     private String url;
-    private AdressModel adress;
+    private AddressDto adress;
     private List<RoleDto> roleList;
 
     public long getId() {
@@ -55,14 +55,6 @@ public class UserDto {
         this.url = url;
     }
 
-    public AdressModel getAdress() {
-        return adress;
-    }
-
-    public void setAdress(AdressModel adress) {
-        this.adress = adress;
-    }
-
     public List<RoleDto> getRoleList() {
         return roleList;
     }
@@ -70,4 +62,8 @@ public class UserDto {
     public void setRoleList(List<RoleDto> roleList) {
         this.roleList = roleList;
     }
+
+    public AddressDto getAdress() { return adress; }
+
+    public void setAdress(AddressDto adress) { this.adress = adress; }
 }
