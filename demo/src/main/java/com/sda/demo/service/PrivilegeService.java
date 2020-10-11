@@ -1,9 +1,7 @@
 package com.sda.demo.service;
 
 import com.sda.demo.dto.PrivilegeDto;
-import com.sda.demo.dto.RoleDto;
 import com.sda.demo.persitance.model.PrivilegeModel;
-import com.sda.demo.persitance.model.RoleModel;
 import com.sda.demo.repository.PrivilegeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

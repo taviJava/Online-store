@@ -39,14 +39,13 @@ public class CategoryService {
     public void add(CategoryDto categoryDto){
         CategoryModel categoryModel = new CategoryModel();
         categoryModel.setName(categoryDto.getName());
-        List<CategoryModel> subCategories = new ArrayList<>();
-        for (CategoryDto subCategory: categoryDto.getSubcategories()){
-            CategoryModel subCategoryModel = new CategoryModel();
-            subCategoryModel.setId(subCategory.getId());
-            subCategoryModel.setName(subCategory.getName());
-            subCategories.add(subCategoryModel);
+        CategoryDto parentCategory= categoryDto.getParent();
+        if (parentCategory != null){
+            CategoryModel parentCategoryModel = categoryRepository.findById(parentCategory.getId()).orElse(null);
+            categoryModel.setParent(parentCategoryModel);
         }
-        categoryModel.setSubcategories(subCategories);
+        categoryRepository.save(categoryModel);
+
     }
  public CategoryDto getCategory(long id){
 CategoryModel categoryModel = categoryRepository.findById(id).orElse(null);
@@ -71,13 +70,11 @@ public void delete(long id){
 public void update(CategoryDto categoryDto){
         CategoryModel categoryModel = categoryRepository.findById(categoryDto.getId()).orElse(null);
     categoryModel.setName(categoryDto.getName());
-    List<CategoryModel> subCategories = new ArrayList<>();
-    for (CategoryDto subCategory: categoryDto.getSubcategories()){
-        CategoryModel subCategoryModel = new CategoryModel();
-        subCategoryModel.setId(subCategory.getId());
-        subCategoryModel.setName(subCategory.getName());
-        subCategories.add(subCategoryModel);
+    CategoryDto parentCategory= categoryDto.getParent();
+    if (parentCategory != null){
+        CategoryModel parentCategoryModel = categoryRepository.findById(parentCategory.getId()).orElse(null);
+        categoryModel.setParent(parentCategoryModel);
     }
-    categoryModel.setSubcategories(subCategories);
+    categoryRepository.save(categoryModel);
 }
 }
