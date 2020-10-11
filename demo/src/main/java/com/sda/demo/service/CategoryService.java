@@ -6,10 +6,11 @@ import com.sda.demo.persitance.model.CategoryModel;
 import com.sda.demo.persitance.model.ProductModel;
 import com.sda.demo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
@@ -21,9 +22,11 @@ public class CategoryService {
              CategoryDto categoryDto = new CategoryDto();
              categoryDto.setId(categoryModel.getId());
              categoryDto.setName(categoryModel.getName());
-            
+
              categoriesDto.add(categoryDto);
          }
          return categoriesDto;
     }
+
+
 }
