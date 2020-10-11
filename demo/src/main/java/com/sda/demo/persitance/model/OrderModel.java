@@ -1,7 +1,11 @@
 package com.sda.demo.persitance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class OrderModel {
@@ -15,6 +19,10 @@ public class OrderModel {
     private Date orderDate;
     @Enumerated(EnumType.STRING)
     private StatusModel status;
+
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnoreProperties("orderModel")
+    private List<OrderLineModel> orderLines = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -70,5 +78,13 @@ public class OrderModel {
 
     public void setStatus(StatusModel status) {
         this.status = status;
+    }
+
+    public List<OrderLineModel> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(List<OrderLineModel> orderLines) {
+        this.orderLines = orderLines;
     }
 }

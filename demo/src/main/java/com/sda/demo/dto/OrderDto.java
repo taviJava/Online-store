@@ -1,6 +1,11 @@
 package com.sda.demo.dto;
 
+import com.sda.demo.persitance.model.OrderLineModel;
+
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderDto {
     private long id;
     private String username;
@@ -9,6 +14,7 @@ public class OrderDto {
     private String userAddress;
     private Date orderDate;
     private String status;
+    private List<OrderLineDto> orderLines = new ArrayList<>();
     public long getId() {
         return id;
     }
@@ -50,5 +56,13 @@ public class OrderDto {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<OrderLineDto> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(List<OrderLineDto> orderLines) {
+        this.orderLines = orderLines;
     }
 }
