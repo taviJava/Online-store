@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<OrderModel, Long> {
-    public Optional<OrderModel> findOrderModelByUserName(String username);
+    public Optional<OrderModel> findOrderModelByUsername(String username);
 }
 

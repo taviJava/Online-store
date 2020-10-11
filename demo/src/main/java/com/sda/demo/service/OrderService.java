@@ -24,7 +24,7 @@ public class OrderService {
     private ProductRepository productRepository;
 
     public void addToCart(String username, Long productID){
-        Optional<OrderModel> orderModelOptional = orderRepository.findOrderModelByUserName(username);
+        Optional<OrderModel> orderModelOptional = orderRepository.findOrderModelByUsername(username);
         OrderModel order;
 
         boolean isAlreadyInBasket = false;

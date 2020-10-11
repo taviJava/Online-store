@@ -1,5 +1,7 @@
 package com.sda.demo.persitance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +22,8 @@ public class ProductModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private CategoryModel category;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("products")
     private ManufacturerModel manufacturer;
 
     public OrderLineModel getOrderline() {

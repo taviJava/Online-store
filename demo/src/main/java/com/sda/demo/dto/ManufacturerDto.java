@@ -1,9 +1,14 @@
 package com.sda.demo.dto;
 
+import com.sda.demo.persitance.model.ProductModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ManufacturerDto {
     private long id;
     private String name;
-    private ProductDto productDto;
+    private List<ProductModel> products = new ArrayList();
 
     public long getId() {
         return id;
@@ -21,11 +26,11 @@ public class ManufacturerDto {
         this.name = name;
     }
 
-    public ProductDto getProductDto() {
-        return productDto;
+    public List<ProductModel> getProducts() {
+        return products;
     }
 
-    public void setProductDto(ProductDto productDto) {
-        this.productDto = productDto;
+    public void setProducts(List<ProductModel> products) {
+        this.products = products;
     }
 }
