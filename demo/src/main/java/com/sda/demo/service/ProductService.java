@@ -82,6 +82,24 @@ private ProductRepository productRepository;
         productDto.setManufacturer(manufacturerDto);
         return productDto;
     }
+public void update (ProductDto productDto){
+        ProductModel productModel = productRepository.findById(productDto.getId()).orElse(null);
+    productModel.setName(productDto.getName());
+    productModel.setPhoto(productDto.getPhoto());
+    productModel.setPrice(productDto.getPrice());
+    CategoryModel categoryModel = categoryRepository.findById(productDto.getCategory().getId()).orElse(null);
+    productModel.setCategory(categoryModel);
+    productModel.setDescription(productDto.getDescription());
+    ManufacturerModel manufacturerModel = manufacturerRepository.findById(productDto.getManufacturer().getId()).orElse(null);
+    productModel.setManufacturer(manufacturerModel);
+    productModel.setProductType(ProductType.valueOf(productDto.getProductType()));
+    productRepository.save(productModel);
 
+}
+
+public void delete(long id){
+    ProductModel productModel = productRepository.findById(id).orElse(null);
+        productRepository.delete(productModel);
+}
 
 }
