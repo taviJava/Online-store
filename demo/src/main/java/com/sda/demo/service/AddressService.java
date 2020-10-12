@@ -1,9 +1,13 @@
 package com.sda.demo.service;
 
 import com.sda.demo.dto.AddressDto;
+import com.sda.demo.dto.CategoryDto;
+import com.sda.demo.dto.UserDto;
 import com.sda.demo.persitance.model.AdressModel;
+import com.sda.demo.persitance.model.CategoryModel;
 import com.sda.demo.persitance.model.UserModel;
 import com.sda.demo.repository.AdressRepository;
+import com.sda.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,8 @@ public class AddressService {
 
     @Autowired
     private AdressRepository adressRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     public List<AddressDto> getAddress() {
@@ -57,5 +63,20 @@ public class AddressService {
             adressRepository.save(adressModel);
         }
     }
+    public AddressDto get(long id) {
+        AdressModel adressModel = adressRepository.findById(id).orElse(null);
+        AddressDto addressDto = new AddressDto();
+        addressDto.setId(adressModel.getId());
+        addressDto.setStreet(adressModel.getStreet());
+        addressDto.setZipCode(adressModel.getZipCode());
+        UserModel userModel = userRepository.findById(adressModel.getUser().getId()).orElse(null);
+        UserDto userDto = new UserDto();
+        userDto.setId(userModel.getId());
+        userDto.setEmail(userModel.getEmail());
+        userDto.setId(userModel.getId());
+        userDto.setUrl(userModel.getUrl());
+        addressDto.setUserDto(userDto);
+        return addressDto;
 
+    }
 }

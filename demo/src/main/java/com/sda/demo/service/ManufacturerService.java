@@ -41,6 +41,15 @@ public class ManufacturerService {
 
     }
 
+    public ManufacturerDto get(long id){
+        ManufacturerModel manufacturerModel = manufacturerRepository.findById(id).orElse(null);
+        ManufacturerDto manufacturerDto = new ManufacturerDto();
+        manufacturerDto.setId(manufacturerModel.getId());
+        manufacturerDto.setName(manufacturerDto.getName());
+        return manufacturerDto;
+
+    }
+
     public void update(ManufacturerDto manufacturerDto) {
         Optional<ManufacturerModel> manufacturerModelOptional = manufacturerRepository.findById(manufacturerDto.getId());
         if (manufacturerModelOptional.isPresent()) {

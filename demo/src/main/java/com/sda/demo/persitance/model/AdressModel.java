@@ -60,4 +60,12 @@ private UserModel user;
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
 }
