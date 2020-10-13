@@ -15,25 +15,46 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<CategoryDto> getCategories(){
+    public List<CategoryDto> getAllCategories(){
         List<CategoryModel> categories = categoryRepository.findAll();
          List<CategoryDto> categoriesDto = new ArrayList<>();
          for (CategoryModel categoryModel: categories){
              CategoryDto categoryDto = new CategoryDto();
              categoryDto.setId(categoryModel.getId());
              categoryDto.setName(categoryModel.getName());
-             List<CategoryModel> subCategories = categoryModel.getSubcategories();
-             List<CategoryDto> categoryDtos = new ArrayList<>();
-             for (CategoryModel subCategory: subCategories){
-                 CategoryDto subCategoryDto = new CategoryDto();
-                 subCategoryDto.setId(subCategory.getId());
-                 subCategoryDto.setName(subCategory.getName());
-                 categoriesDto.add(subCategoryDto);
+             if (categoryModel.getParent()!= null){
+                 CategoryModel paternM = categoryModel.getParent();
+                 CategoryDto paternD = new CategoryDto();
+                 paternD.setId(paternM.getId());
+                 paternD.setName(paternM.getName());
+                 categoryDto.setParent(paternD);
              }
-             categoryDto.setSubcategories(categoryDtos);
              categoriesDto.add(categoryDto);
          }
+
          return categoriesDto;
+    }
+
+    public List<CategoryDto> getCategories(){
+        List <CategoryDto> categoriesAll = getAllCategories();
+        List <CategoryDto> categories = new ArrayList<>();
+        for (CategoryDto categoryDto: categoriesAll){
+            if (categoryDto.getParent()==null){
+                categories.add(categoryDto);
+            }
+        }
+        return categories;
+    }
+
+    public List<CategoryDto> getSubCategories(){
+        List <CategoryDto> categoriesAll = getAllCategories();
+        List <CategoryDto> subCategories = new ArrayList<>();
+        for (CategoryDto categoryDto: categoriesAll){
+            if (categoryDto.getParent()!=null){
+                subCategories.add(categoryDto);
+            }
+        }
+        return subCategories;
     }
 
     public void add(CategoryDto categoryDto){

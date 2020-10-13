@@ -28,8 +28,8 @@ public class ProductController {
         productService.delete(id);
     }
     @GetMapping("/product")
-    public List<ProductModel> getProduct() {
-        return productRepository.findAll();
+    public List<ProductDto> getProduct() {
+        return productService.getProducts();
     }
     @GetMapping("/product/{id}")
     public ProductDto getProduct(@PathVariable(name = "id") Long id) {

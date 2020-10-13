@@ -27,7 +27,10 @@ public class CategoryController {
     public List<CategoryDto> getCategory() {
         return categoryService.getCategories();
     }
-
+    @GetMapping("/categorySub")
+    public List<CategoryDto> getSubCategory() {
+        return categoryService.getSubCategories();
+    }
     @GetMapping("/category/{id}")
     public CategoryDto getCategory(@PathVariable(name = "id") Long id) {
         return categoryService.getCategory(id);
