@@ -11,7 +11,7 @@ public class ProductDto {
 
     private OrderLineDto orderline;
     private String productType;
-    private CategoryDto category;
+    private CategoryDto subcategory;
     private ManufacturerDto manufacturer;
 
     public long getId() {
@@ -71,11 +71,11 @@ public class ProductDto {
     }
 
     public CategoryDto getCategory() {
-        return category;
+        return subcategory;
     }
 
-    public void setCategory(CategoryDto category) {
-        this.category = category;
+    public void setCategory(CategoryDto subcategory) {
+        this.subcategory = subcategory;
     }
 
     public ManufacturerDto getManufacturer() {

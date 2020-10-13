@@ -18,7 +18,7 @@ public class CategoryModel {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<CategoryModel> subcategories = new ArrayList<>();
 
-    @OneToMany( mappedBy = "category")
+    @OneToMany( mappedBy = "subcategory")
     private List<ProductModel> products;
 
     public List<ProductModel> getProducts() {
