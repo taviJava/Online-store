@@ -23,7 +23,7 @@ public class ManufacturerService {
         for (ManufacturerModel manufacturerModel : manufacturerModelList) {
             ManufacturerDto manufacturerDto = new ManufacturerDto();
             manufacturerDto.setId(manufacturerModel.getId());
-            manufacturerDto.setName(manufacturerDto.getName());
+            manufacturerDto.setName(manufacturerModel.getName());
             manufacturerDtoList.add(manufacturerDto);
         }
         return manufacturerDtoList;

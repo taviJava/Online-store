@@ -18,7 +18,7 @@ public class CategoryDto {
         private List<CategoryDto> subcategories = new ArrayList<>();
 
 
-        private List<ProductDto> products;
+        private List<ProductDto> products = new ArrayList<>();
 
         public List<ProductDto> getProducts() {
             return products;

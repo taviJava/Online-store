@@ -1,5 +1,7 @@
 package com.sda.demo.persitance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +14,16 @@ public class CategoryModel {
     private Long id;
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     private CategoryModel parent;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
+    @OneToMany( mappedBy = "parent")
     private List<CategoryModel> subcategories = new ArrayList<>();
 
-    @OneToMany( mappedBy = "subcategory")
-    private List<ProductModel> products;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("category")
+    @JoinColumn(name = "category_id")
+    private List<ProductModel> products = new ArrayList<>();
 
     public List<ProductModel> getProducts() {
         return products;

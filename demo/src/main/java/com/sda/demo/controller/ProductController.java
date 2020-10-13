@@ -2,6 +2,8 @@ package com.sda.demo.controller;
 
 import com.sda.demo.dto.ProductDto;
 import com.sda.demo.dto.UserDto;
+import com.sda.demo.persitance.model.ProductModel;
+import com.sda.demo.repository.ProductRepository;
 import com.sda.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @PostMapping("/product")
     public void addProduct(@RequestBody ProductDto productDto) {
         productService.addProduct(productDto);
@@ -23,8 +28,8 @@ public class ProductController {
         productService.delete(id);
     }
     @GetMapping("/product")
-    public List<ProductDto> getProduct() {
-        return productService.getProducts();
+    public List<ProductModel> getProduct() {
+        return productRepository.findAll();
     }
     @GetMapping("/product/{id}")
     public ProductDto getProduct(@PathVariable(name = "id") Long id) {
@@ -33,6 +38,5 @@ public class ProductController {
     @PutMapping("/product")
     public void update(@RequestBody ProductDto productDto) {
         productService.addProduct(productDto);
-
     }
 }

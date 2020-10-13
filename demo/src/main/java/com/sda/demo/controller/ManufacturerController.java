@@ -2,6 +2,8 @@ package com.sda.demo.controller;
 
 
 import com.sda.demo.dto.ManufacturerDto;
+import com.sda.demo.persitance.model.ManufacturerModel;
+import com.sda.demo.repository.ManufacturerRepository;
 import com.sda.demo.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 public class ManufacturerController {
     @Autowired
     private ManufacturerService manufacturerService;
+    @Autowired
+    private ManufacturerRepository manufacturerRepository;
 
     @PostMapping("/manufacturer")
     public void add(@RequestBody ManufacturerDto manufacturerDto) {

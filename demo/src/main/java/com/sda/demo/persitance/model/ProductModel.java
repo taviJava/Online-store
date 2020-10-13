@@ -22,7 +22,7 @@ public class ProductModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("products")
-    private CategoryModel subcategory;
+    private CategoryModel category;
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("products")
     private ManufacturerModel manufacturer;
@@ -36,11 +36,11 @@ public class ProductModel {
     }
 
     public CategoryModel getCategory() {
-        return subcategory;
+        return category;
     }
 
-    public void setCategory(CategoryModel subcategory) {
-        this.subcategory = subcategory;
+    public void setCategory(CategoryModel category) {
+        this.category = category;
     }
 
     public long getId() {
