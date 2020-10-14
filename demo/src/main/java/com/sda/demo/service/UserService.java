@@ -24,19 +24,17 @@ public class UserService {
         AddressDto addressDto = userDto.getAdress();
         AdressModel addressModel = new AdressModel();
 
-
         if(addressDto != null){
-            addressModel.setId(addressDto.getId());
             addressModel.setCountry(addressDto.getCountry());
             addressModel.setZipCode(addressDto.getZipCode());
-            addressDto.setStreet(addressDto.getStreet());
-            addressDto.setCity(addressDto.getCity());
+            addressModel.setStreet(addressDto.getStreet());
+            addressModel.setCity(addressDto.getCity());
 
         }
         userModel.setAdress(addressModel);
         userModel.setId(userDto.getId());
         userModel.setEmail(userDto.getEmail());
-
+        userModel.setUrl(userDto.getUrl());
         userRepository.save(userModel);
     }
 

@@ -1,6 +1,7 @@
 package com.sda.demo.controller;
 
 import com.sda.demo.dto.UserDto;
+import com.sda.demo.persitance.model.UserModel;
 import com.sda.demo.repository.UserRepository;
 import com.sda.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     @PostMapping("/user")
