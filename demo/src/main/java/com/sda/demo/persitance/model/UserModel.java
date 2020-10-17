@@ -1,6 +1,7 @@
 package com.sda.demo.persitance.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -33,6 +34,17 @@ public class UserModel {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<RoleModel> roleList;
 
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private PhotoU photos;
+
+    public PhotoU getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(PhotoU photos) {
+        this.photos = photos;
+    }
 
     public long getId() {
         return id;
