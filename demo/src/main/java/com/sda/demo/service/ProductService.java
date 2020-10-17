@@ -15,27 +15,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
-private ProductRepository productRepository;
+    private ProductRepository productRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
     private ManufacturerRepository manufacturerRepository;
 
-    public List<ProductDto> getProducts(){
+    public List<ProductDto> getProducts() {
         List<ProductModel> productModels = productRepository.findAll();
         List<ProductDto> productDtoList = new ArrayList<>();
-        for (ProductModel productModel: productModels){
+        for (ProductModel productModel : productModels) {
             ProductDto productDto = new ProductDto();
             productDto.setId(productModel.getId());
             productDto.setPrice(productModel.getPrice());
             productDto.setName(productModel.getName());
-            productDto.setPhoto(productModel.getPhoto());
+            // productDto.setPhoto(productModel.getPhoto());
             productDto.setDescription(productModel.getDescription());
-            CategoryDto categoryDto =new CategoryDto();
+            CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(productModel.getCategory().getId());
             categoryDto.setName(productModel.getCategory().getName());
             productDto.setCategory(categoryDto);
@@ -49,10 +51,9 @@ private ProductRepository productRepository;
         return productDtoList;
     }
 
-    public void addProduct(ProductDto productDto){
+    public void addProduct(ProductDto productDto) {
         ProductModel productModel = new ProductModel();
         productModel.setName(productDto.getName());
-        productModel.setPhoto(productDto.getPhoto());
         productModel.setPrice(productDto.getPrice());
         CategoryModel categoryModel = categoryRepository.findById(productDto.getCategory().getId()).orElse(null);
         productModel.setCategory(categoryModel);
@@ -64,15 +65,15 @@ private ProductRepository productRepository;
 
     }
 
-    public ProductDto getProduct (long id){
+    public ProductDto getProduct(long id) {
         ProductModel productModel = productRepository.findById(id).orElse(null);
         ProductDto productDto = new ProductDto();
         productDto.setId(productModel.getId());
         productDto.setPrice(productModel.getPrice());
         productDto.setName(productModel.getName());
-        productDto.setPhoto(productModel.getPhoto());
+        // productDto.setPhoto(productModel.getPhoto());
         productDto.setDescription(productModel.getDescription());
-        CategoryDto categoryDto =new CategoryDto();
+        CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(productModel.getCategory().getId());
         categoryDto.setName(productModel.getCategory().getName());
         productDto.setCategory(categoryDto);
@@ -82,24 +83,24 @@ private ProductRepository productRepository;
         productDto.setManufacturer(manufacturerDto);
         return productDto;
     }
-public void update (ProductDto productDto){
+
+    public void update(ProductDto productDto) {
         ProductModel productModel = productRepository.findById(productDto.getId()).orElse(null);
-    productModel.setName(productDto.getName());
-    productModel.setPhoto(productDto.getPhoto());
-    productModel.setPrice(productDto.getPrice());
-    CategoryModel categoryModel = categoryRepository.findById(productDto.getCategory().getId()).orElse(null);
-    productModel.setCategory(categoryModel);
-    productModel.setDescription(productDto.getDescription());
-    ManufacturerModel manufacturerModel = manufacturerRepository.findById(productDto.getManufacturer().getId()).orElse(null);
-    productModel.setManufacturer(manufacturerModel);
-    productModel.setProductType(ProductType.valueOf(productDto.getProductType()));
-    productRepository.save(productModel);
+        productModel.setName(productDto.getName());
+        // productModel.setPhoto(productDto.getPhoto());
+        productModel.setPrice(productDto.getPrice());
+        CategoryModel categoryModel = categoryRepository.findById(productDto.getCategory().getId()).orElse(null);
+        productModel.setCategory(categoryModel);
+        productModel.setDescription(productDto.getDescription());
+        ManufacturerModel manufacturerModel = manufacturerRepository.findById(productDto.getManufacturer().getId()).orElse(null);
+        productModel.setManufacturer(manufacturerModel);
+        productModel.setProductType(ProductType.valueOf(productDto.getProductType()));
+        productRepository.save(productModel);
 
-}
+    }
 
-public void delete(long id){
-    ProductModel productModel = productRepository.findById(id).orElse(null);
+    public void delete(long id) {
+        ProductModel productModel = productRepository.findById(id).orElse(null);
         productRepository.delete(productModel);
-}
-
+    }
 }

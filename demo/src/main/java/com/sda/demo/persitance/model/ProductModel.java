@@ -5,13 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    private String photo;
     private String description;
     private double price;
     @OneToOne(cascade = CascadeType.ALL)
@@ -26,6 +25,9 @@ public class ProductModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("products")
     private ManufacturerModel manufacturer;
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "product")
+    @JsonIgnoreProperties("product")
+    private PhotoPModel photos;
 
     public OrderLineModel getOrderline() {
         return orderline;
@@ -51,13 +53,6 @@ public class ProductModel {
         this.id = id;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     public String getName() {
         return name;
@@ -95,7 +90,16 @@ public class ProductModel {
         return manufacturer;
     }
 
+    public PhotoPModel getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(PhotoPModel photos) {
+        this.photos = photos;
+    }
+
     public void setManufacturer(ManufacturerModel manufacturer) {
         this.manufacturer = manufacturer;
     }
+
 }

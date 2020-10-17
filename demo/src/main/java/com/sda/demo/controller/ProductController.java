@@ -1,14 +1,25 @@
 package com.sda.demo.controller;
 
+import com.sda.demo.dto.Files.ResponseFile;
+import com.sda.demo.dto.Files.ResponseMessage;
 import com.sda.demo.dto.ProductDto;
 import com.sda.demo.dto.UserDto;
+import com.sda.demo.persitance.model.PhotoPModel;
 import com.sda.demo.persitance.model.ProductModel;
+import com.sda.demo.repository.PhotoPRepository;
 import com.sda.demo.repository.ProductRepository;
+import com.sda.demo.service.PhotoPService;
 import com.sda.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -17,26 +28,75 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
+    private PhotoPService photoPService;
+
+    @Autowired
+    private PhotoPRepository photoPRepository;
+
+    @Autowired
     private ProductRepository productRepository;
 
     @PostMapping("/product")
-    public void addProduct(@RequestBody ProductDto productDto) {
-        productService.addProduct(productDto);
+    public void addProduct(@RequestBody ProductModel productModel) {
+        productRepository.save(productModel);
     }
+
     @DeleteMapping("/product/{id}")
     public void deleteProduct(@PathVariable(name = "id") Long id) {
         productService.delete(id);
     }
+
     @GetMapping("/product")
     public List<ProductDto> getProduct() {
         return productService.getProducts();
     }
+
     @GetMapping("/product/{id}")
     public ProductDto getProduct(@PathVariable(name = "id") Long id) {
         return productService.getProduct(id);
     }
+
     @PutMapping("/product")
     public void update(@RequestBody ProductDto productDto) {
         productService.addProduct(productDto);
     }
+
+    @PostMapping("/photop")
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("photo") MultipartFile photop) {
+        String message;
+        try {
+            photoPService.store(photop);
+            message = "Uploaded the file successfully: " + photop.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + photop.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    @GetMapping("/photoP/{id}")
+    public ResponseEntity<List<ResponseFile>> getProductPhoto(@PathVariable(name = "id") Long id) {
+        List<ResponseFile> files = photoPService.getProductPhoto(id).map(dbFile -> {
+            String fileDownloadUri = ServletUriComponentsBuilder
+                    .fromCurrentContextPath()
+                    .path("/photop/")
+                    .path(dbFile.getId())
+                    .toUriString();
+            return new ResponseFile(
+                    dbFile.getName(),
+                    fileDownloadUri,
+                    dbFile.getType(),
+                    dbFile.getData().length);
+        }).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @GetMapping("/photop/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+        PhotoPModel photoP = photoPService.getPhoto(id);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photoP.getName() + "\"")
+                .body(photoP.getData());
+    }
+
 }
