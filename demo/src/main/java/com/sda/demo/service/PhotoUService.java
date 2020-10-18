@@ -26,9 +26,9 @@ public class PhotoUService {
     public PhotoU store(MultipartFile file) throws IOException, InterruptedException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         PhotoU photoU = new PhotoU(fileName, file.getContentType(), file.getBytes());
-         TimeUnit.SECONDS.sleep(3);
-         List<UserModel> users = userRepository.findAll();
-         UserModel userModel = users.get(users.size()-1);
+        TimeUnit.SECONDS.sleep(3);
+        List<UserModel> users = userRepository.findAll();
+        UserModel userModel = users.get(users.size() - 1);
         photoU.setUser(userModel);
         return photoURepository.save(photoU);
     }
