@@ -1,5 +1,7 @@
 package com.sda.demo.controller;
 
+import com.sda.demo.common.util.AuthenticationBean;
+import com.sda.demo.dto.AuthTokenDto;
 import com.sda.demo.dto.Files.ResponseFile;
 import com.sda.demo.dto.Files.ResponseMessage;
 import com.sda.demo.dto.UserDto;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +40,10 @@ public class UserController {
         userService.save(userDto);
 
     }
-
+    @PostMapping("/login/{username}/{password}")
+    public AuthTokenDto login(@PathVariable(name = "username") String username, @PathVariable(name = "password") String password) throws AccessDeniedException {
+        return userService.login(username,password);
+    }
     @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable(name = "id") Long id) {
         userService.deleteById(id);
@@ -58,6 +64,7 @@ public class UserController {
         userService.update(userDto);
 
     }
+
     @PostMapping("/photos")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("photo") MultipartFile photo) {
         String message;
@@ -89,8 +96,9 @@ public class UserController {
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+
     @GetMapping("/photo/{id}")
-    public ResponseEntity<List<ResponseFile>> getUserPhoto(@PathVariable(name = "id") Long id){
+    public ResponseEntity<List<ResponseFile>> getUserPhoto(@PathVariable(name = "id") Long id) {
         List<ResponseFile> files = photoUService.getUserPhoto(id).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
@@ -112,5 +120,15 @@ public class UserController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photoU.getName() + "\"")
                 .body(photoU.getData());
+    }
+
+    @GetMapping(path = "/basicauth")
+    public AuthenticationBean basicauth() {
+        return new AuthenticationBean("You are authenticated");
+    }
+    @GetMapping("/user/getbyusername/{username}")
+    public UserDto getUserByUsername(@PathVariable(name = "username") String userName){
+        UserDto userDto = userService.findByUsername(userName);
+        return userDto;
     }
 }
