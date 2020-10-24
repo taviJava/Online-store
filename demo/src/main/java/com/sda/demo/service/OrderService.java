@@ -243,14 +243,48 @@ public class OrderService {
         orderModel.setTotalCost(totalPrice(orderModel.getOrderLines()));
         orderRepository.save(orderModel);
     }
-    public OrderModel findByUserName(String username) {
+    public OrderDto findByUserName(String username) {
+        // de aici
         List<OrderModel> orderModels = orderRepository.findAllByUsername(username);
-        for (OrderModel orderModel: orderModels){
-            if (orderModel.getStatus().name().equals("pending")){
-                return orderModel;
+        OrderDto orderDto = new OrderDto();
+        for (OrderModel order: orderModels) {
+            if (order.getStatus().name().equals("pending")) {
+                if (order != null) {
+                    if (order.getPromoCode() != null) {
+                        PromoCodeDto promoCodeDto = new PromoCodeDto();
+                        promoCodeDto.setId(order.getPromoCode().getId());
+                        promoCodeDto.setPromoNumber(order.getPromoCode().getPromoNumber());
+                        promoCodeDto.setCode(order.getPromoCode().getCode());
+                        orderDto.setPromoCodeDto(promoCodeDto);
+                    }
+                    orderDto.setId(order.getId());
+                    orderDto.setTotalCost(order.getTotalCost());
+                    if (order.getAdditionalComment() != null) {
+                        orderDto.setAdditionalComment(order.getAdditionalComment());
+                    }
+                    List<OrderLineDto> orderLineDtos = new ArrayList<>();
+                    for (OrderLineModel ol : order.getOrderLines()) {
+                        OrderLineDto old = new OrderLineDto();
+                        old.setId(ol.getId());
+                        old.setProductPrice(ol.getProductPrice());
+                        old.setProductsQuantity(ol.getProductsQuantity());
+
+                        ProductDto productDto = new ProductDto();
+                        productDto.setId(ol.getProduct().getId());
+                        productDto.setName(ol.getProduct().getName());
+                        productDto.setPrice(ol.getProduct().getPrice());
+                        old.setProduct(productDto);
+                        orderLineDtos.add(old);
+                    }
+
+                }
             }
         }
-        return new OrderModel();
+        //pana aici
+
+
+
+        return orderDto;
     }
 
       public void applyPromo(String code,long id){

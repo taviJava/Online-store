@@ -65,7 +65,7 @@ public class OrderController {
     }
 
     @GetMapping("/orders/{username}/find")
-    public OrderModel getOrder(@PathVariable(name = "username") String username){
+    public OrderDto getOrder(@PathVariable(name = "username") String username){
         return this.orderService.findByUserName(username);
     }
 
