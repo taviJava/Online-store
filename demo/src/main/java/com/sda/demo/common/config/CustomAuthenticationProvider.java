@@ -1,8 +1,8 @@
-package com.sda.demo.common.config;
+package com.project.demo.common.config;
 
-import com.sda.demo.common.util.Hasher;
-import com.sda.demo.persitance.model.UserModel;
-import com.sda.demo.repository.UserRepository;
+import com.project.demo.common.util.Hasher;
+import com.project.demo.persitance.model.UserModel;
+import com.project.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +37,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     private boolean shouldAuthenticateAgainstThirdPartySystem(String name, String password) {
-        UserModel user = userRepository.findByEmail(name).orElse(null);
+        UserModel user = userRepository.getUserModelByEmail(name).orElse(null);
         if (user != null && user.getPassword().equals(Hasher.encode(password))) {
             return true;
         } else {

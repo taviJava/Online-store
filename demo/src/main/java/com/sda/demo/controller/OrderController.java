@@ -1,13 +1,12 @@
-package com.sda.demo.controller;
-
-import com.sda.demo.dto.OrderDto;
-import com.sda.demo.persitance.model.OrderModel;
-import com.sda.demo.repository.OrderRepository;
-import com.sda.demo.service.OrderService;
-import com.sda.demo.service.ProductService;
+package com.project.demo.controller;
+import com.project.demo.persitance.dto.OrderDto;
+import com.project.demo.persitance.model.OrderModel;
+import com.project.demo.repository.OrderRepository;
+import com.project.demo.service.OrderService;
+import com.project.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,39 +14,23 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private ProductService productService;
+
     @Autowired
     private OrderRepository orderRepository;
 
-
-    @PostMapping("/orders")
-    public void add(@RequestBody OrderModel orderModel){
-        orderRepository.save(orderModel);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @PostMapping("/order/{username}/{id}")
+    @PostMapping("/orders/{username}/{id}")
     public void save(@PathVariable(name = "username") String username, @PathVariable(name = "id") Long productID) {
         orderService.addToCart(username, productID);
+    }
+    @PutMapping("/orders/{idQ}/{id}")
+    public void updateQuantity(@PathVariable(name = "idQ") int quantity, @PathVariable(name = "id") Long ordLnID) {
+        orderService.updateOrderLineQuantity(quantity,ordLnID);
+    }
+    @PostMapping("/orders")
+    public void add(@RequestBody OrderDto orderDto){
+        orderService.add(orderDto);
     }
 
     @GetMapping("/orders/{id}")
@@ -65,9 +48,9 @@ public class OrderController {
         orderService.deleteById(id);
     }
 
-    @PutMapping("/orders")
-    public void update(@RequestBody OrderDto orderDTO) {
-        orderService.update(orderDTO);
+    @PutMapping("/orders/{id}/{address}/{additionalComment}")
+    public void update(@PathVariable(name = "id") Long id,@PathVariable(name = "address") String address,@PathVariable(name = "additionalComment") String additionalComment) {
+        orderService.update(id,address,additionalComment);
     }
 
     @GetMapping("/orderslines/{id}")
@@ -75,4 +58,24 @@ public class OrderController {
         OrderDto orderDTO = orderService.findById(id);
         return orderDTO;
     }
+
+    @DeleteMapping("/orders/OrdLn/{idOrdLn}")
+    public void deleteOrdLn(@PathVariable(name = "idOrdLn") Long id){
+        orderService.deleteOrdLn(id);
+    }
+
+    @GetMapping("/orders/{username}/find")
+    public OrderModel getOrder(@PathVariable(name = "username") String username){
+        return this.orderService.findByUserName(username);
+    }
+
+    @PostMapping("/ordersPromo/{code}/{id}")
+    public void saveCode(@PathVariable(name = "code") String code, @PathVariable(name = "id") Long id) {
+        orderService.applyPromo(code, id);
+    }
+
+//    @PostMapping("/ordersPurchase")
+//    public void purchase(@RequestBody OrderModel orderModel) {
+//        orderService.purchase(orderModel);
+//    }
 }

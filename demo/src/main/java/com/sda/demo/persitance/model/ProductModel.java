@@ -1,11 +1,13 @@
-package com.sda.demo.persitance.model;
+package com.project.demo.persitance.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,8 +15,9 @@ public class ProductModel {
     private String name;
     private String description;
     private double price;
-    @OneToOne(cascade = CascadeType.ALL)
-    private OrderLineModel orderline;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("product")
+    private List<OrderLineModel> orderlines;
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
@@ -25,16 +28,18 @@ public class ProductModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("products")
     private ManufacturerModel manufacturer;
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("product")
-    private PhotoPModel photos;
-
-    public OrderLineModel getOrderline() {
-        return orderline;
+    private PhotoP photos;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", orphanRemoval = false)
+    @JsonIgnoreProperties("product")
+    private List<ReviewModel>reviewModelList =new ArrayList<>();
+    public List<OrderLineModel> getOrderlines() {
+        return orderlines;
     }
 
-    public void setOrderline(OrderLineModel orderline) {
-        this.orderline = orderline;
+    public void setOrderlines(List<OrderLineModel> orderlines) {
+        this.orderlines = orderlines;
     }
 
     public CategoryModel getCategory() {
@@ -90,11 +95,11 @@ public class ProductModel {
         return manufacturer;
     }
 
-    public PhotoPModel getPhotos() {
+    public PhotoP getPhotos() {
         return photos;
     }
 
-    public void setPhotos(PhotoPModel photos) {
+    public void setPhotos(PhotoP photos) {
         this.photos = photos;
     }
 
@@ -102,4 +107,11 @@ public class ProductModel {
         this.manufacturer = manufacturer;
     }
 
+    public List<ReviewModel> getReviewModelList() {
+        return reviewModelList;
+    }
+
+    public void setReviewModelList(List<ReviewModel> reviewModelList) {
+        this.reviewModelList = reviewModelList;
+    }
 }

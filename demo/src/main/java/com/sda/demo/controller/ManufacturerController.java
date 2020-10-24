@@ -1,10 +1,12 @@
-package com.sda.demo.controller;
+package com.project.demo.controller;
 
 
-import com.sda.demo.dto.ManufacturerDto;
-import com.sda.demo.persitance.model.ManufacturerModel;
-import com.sda.demo.repository.ManufacturerRepository;
-import com.sda.demo.service.ManufacturerService;
+
+import com.project.demo.persitance.dto.ManufacturerDto;
+import com.project.demo.persitance.dto.OrderDto;
+import com.project.demo.repository.ManufacturerRepository;
+import com.project.demo.service.ManufacturerService;
+import com.project.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,4 +43,6 @@ public class ManufacturerController {
         manufacturerService.update(manufacturerDto);
 
     }
+
+
 }

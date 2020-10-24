@@ -1,10 +1,9 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-import com.sda.demo.dto.CategoryDto;
-import com.sda.demo.dto.ProductDto;
-import com.sda.demo.persitance.model.CategoryModel;
-import com.sda.demo.persitance.model.ProductModel;
-import com.sda.demo.repository.CategoryRepository;
+
+import com.project.demo.persitance.dto.CategoryDto;
+import com.project.demo.persitance.model.CategoryModel;
+import com.project.demo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +34,27 @@ public class CategoryService {
          return categoriesDto;
     }
 
+    public List<CategoryDto> findCategoriesByParent(long id){
+        List<CategoryModel> categories = categoryRepository.findByParent_Id(id);
+        List<CategoryDto> categoriesDto = new ArrayList<>();
+        for (CategoryModel categoryModel: categories){
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setId(categoryModel.getId());
+            categoryDto.setName(categoryModel.getName());
+            if (categoryModel.getParent()!= null){
+                CategoryModel paternM = categoryModel.getParent();
+                CategoryDto paternD = new CategoryDto();
+                paternD.setId(paternM.getId());
+                paternD.setName(paternM.getName());
+                categoryDto.setParent(paternD);
+            }
+            categoriesDto.add(categoryDto);
+        }
+
+        return categoriesDto;
+
+    }
+
     public List<CategoryDto> getCategories(){
         List <CategoryDto> categoriesAll = getAllCategories();
         List <CategoryDto> categories = new ArrayList<>();
@@ -43,8 +63,18 @@ public class CategoryService {
                 categories.add(categoryDto);
             }
         }
+        List<CategoryDto> subCategories = getSubCategories();
+        for (CategoryDto subCat: subCategories){
+            for (CategoryDto cat: categories){
+                if (subCat.getParent().getId()==cat.getId()){
+                    cat.getSubcategories().add(subCat);
+                }
+            }
+        }
+
         return categories;
     }
+
 
     public List<CategoryDto> getSubCategories(){
         List <CategoryDto> categoriesAll = getAllCategories();

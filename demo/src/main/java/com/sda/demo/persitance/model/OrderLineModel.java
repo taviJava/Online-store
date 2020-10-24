@@ -1,4 +1,4 @@
-package com.sda.demo.persitance.model;
+package com.project.demo.persitance.model;
 
 import javax.persistence.*;
 
@@ -8,7 +8,7 @@ public class OrderLineModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "orderline")
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductModel product;
     private int productsQuantity;
     private double productPrice;

@@ -1,4 +1,4 @@
-package com.sda.demo.common.config;
+package com.project.demo.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private CustomAuthenticationProvider authProvider;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
     }
 
@@ -24,11 +25,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().
                 disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/orders/**")  //"/resources/**"
+                .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll();
 //                .anyRequest()
 //                .authenticated()
 //                .and()
 //                .httpBasic();
+
     }
-}
+
+    }

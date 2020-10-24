@@ -1,24 +1,28 @@
-package com.sda.demo.controller;
+package com.project.demo.controller;
 
-import com.sda.demo.common.util.AuthenticationBean;
-import com.sda.demo.dto.AuthTokenDto;
-import com.sda.demo.dto.Files.ResponseFile;
-import com.sda.demo.dto.Files.ResponseMessage;
-import com.sda.demo.dto.UserDto;
-import com.sda.demo.persitance.model.PhotoU;
-import com.sda.demo.persitance.model.UserModel;
-import com.sda.demo.repository.UserRepository;
-import com.sda.demo.service.PhotoUService;
-import com.sda.demo.service.UserService;
+
+import com.project.demo.common.util.AuthenticationBean;
+import com.project.demo.persitance.dto.UserDto;
+import com.project.demo.persitance.dto.files.ResponseFile;
+import com.project.demo.persitance.dto.files.ResponseMessage;
+import com.project.demo.persitance.model.PhotoU;
+import com.project.demo.persitance.model.PrivilegeModel;
+import com.project.demo.persitance.model.RoleModel;
+import com.project.demo.persitance.model.UserModel;
+import com.project.demo.repository.PrivilegeRepository;
+import com.project.demo.repository.RoleRepository;
+import com.project.demo.repository.UserRepository;
+import com.project.demo.service.PhotoUService;
+import com.project.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,16 +38,18 @@ public class UserController {
     @Autowired
     private PhotoUService photoUService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PrivilegeRepository privilegeRepository;
 
     @PostMapping("/user")
     public void addUser(@RequestBody UserDto userDto) {
         userService.save(userDto);
 
     }
-    @PostMapping("/login/{username}/{password}")
-    public AuthTokenDto login(@PathVariable(name = "username") String username, @PathVariable(name = "password") String password) throws AccessDeniedException {
-        return userService.login(username,password);
-    }
+
     @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable(name = "id") Long id) {
         userService.deleteById(id);
@@ -62,7 +68,6 @@ public class UserController {
     @PutMapping("/user")
     public void update(@RequestBody UserDto userDto) {
         userService.update(userDto);
-
     }
 
     @PostMapping("/photos")
@@ -96,9 +101,8 @@ public class UserController {
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-
     @GetMapping("/photo/{id}")
-    public ResponseEntity<List<ResponseFile>> getUserPhoto(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<List<ResponseFile>> getUserPhoto(@PathVariable(name = "id") Long id){
         List<ResponseFile> files = photoUService.getUserPhoto(id).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
@@ -128,7 +132,15 @@ public class UserController {
     }
     @GetMapping("/user/getbyusername/{username}")
     public UserDto getUserByUsername(@PathVariable(name = "username") String userName){
-        UserDto userDto = userService.findByUsername(userName);
-        return userDto;
+         UserModel userModel = userRepository.getUserModelByEmail(userName).orElse(new UserModel());
+        return userService.findByUsername(userName);
     }
+
+    @GetMapping("/user/privileges/{username}")
+    public List<RoleModel> getPrivByUsername(@PathVariable(name = "username") String userName){
+        UserModel userModel = userRepository.getUserModelByEmail(userName).orElse(new UserModel());
+        List<RoleModel> roleModels = userModel.getRoleList();
+       return roleModels;
+    }
+
 }

@@ -1,10 +1,9 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-
-import com.sda.demo.persitance.model.PhotoU;
-import com.sda.demo.persitance.model.UserModel;
-import com.sda.demo.repository.PhotoURepository;
-import com.sda.demo.repository.UserRepository;
+import com.project.demo.persitance.model.PhotoU;
+import com.project.demo.persitance.model.UserModel;
+import com.project.demo.repository.PhotoURepository;
+import com.project.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -28,7 +27,7 @@ public class PhotoUService {
         PhotoU photoU = new PhotoU(fileName, file.getContentType(), file.getBytes());
         TimeUnit.SECONDS.sleep(3);
         List<UserModel> users = userRepository.findAll();
-        UserModel userModel = users.get(users.size() - 1);
+        UserModel userModel = users.get(users.size()-1);
         photoU.setUser(userModel);
         return photoURepository.save(photoU);
     }
@@ -49,4 +48,3 @@ public class PhotoUService {
     }
 
 }
-

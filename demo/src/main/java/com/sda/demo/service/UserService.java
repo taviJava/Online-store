@@ -1,16 +1,15 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-import com.sda.demo.dto.AddressDto;
-import com.sda.demo.dto.AuthTokenDto;
-import com.sda.demo.dto.UserDto;
-import com.sda.demo.persitance.model.AdressModel;
-import com.sda.demo.persitance.model.AdressModel;
-import com.sda.demo.persitance.model.UserModel;
-import com.sda.demo.repository.UserRepository;
+
+import com.project.demo.persitance.dto.AddressDto;
+import com.project.demo.persitance.dto.PrivilegeDto;
+import com.project.demo.persitance.dto.RoleDto;
+import com.project.demo.persitance.dto.UserDto;
+import com.project.demo.persitance.model.*;
+import com.project.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class UserService {
         AddressDto addressDto = userDto.getAdress();
         AdressModel addressModel = new AdressModel();
 
-        if (addressDto != null) {
+        if(addressDto != null){
             addressModel.setCountry(addressDto.getCountry());
             addressModel.setZipCode(addressDto.getZipCode());
             addressModel.setStreet(addressDto.getStreet());
@@ -36,59 +35,82 @@ public class UserService {
         userModel.setAdress(addressModel);
         userModel.setId(userDto.getId());
         userModel.setEmail(userDto.getEmail());
-        userModel.setUrl(userDto.getUrl());
+        userModel.setPassword(userDto.getPassword());
+        List<UserModel> users = userRepository.findAll();
+        if (users.size()== 0){
+            userModel.setRole(Role.valueOf("Administrator"));
+        }else{
+            userModel.setRole(Role.valueOf("Standard"));
+        }
         userRepository.save(userModel);
     }
 
-    public void deleteById(long id) {
+    public void deleteById(long id){
         userRepository.deleteById(id);
     }
 
-    public List<UserDto> findALl() {
+    public List<UserDto> findALl(){
         List<UserModel> users = userRepository.findAll();
         List<UserDto> usersDto = new ArrayList<>();
 
-        for (UserModel userModel : users) {
+        for(UserModel userModel : users){
             UserDto userDto = new UserDto();
-            AddressDto addressDto = new AddressDto();
 
             userDto.setId(userModel.getId());
-            userDto.setUrl(userModel.getUrl());
             userDto.setEmail(userModel.getEmail());
+            userDto.setPassword(userModel.getPassword());
+            userDto.setRole(userModel.getRole().name());
 
             AdressModel addressModel = userModel.getAdress();
-            if (addressModel != null) {
-                addressDto.setId(addressModel.getId());
-                addressDto.setStreet(addressModel.getStreet());
-                addressDto.setCity(addressModel.getStreet());
-                addressDto.setCountry(addressModel.getCountry());
-                addressDto.setZipCode(addressModel.getZipCode());
+            AddressDto addressDto = new AddressDto();
 
-            }
+            addressDto.setZipCode(addressModel.getZipCode());
+            addressDto.setCountry(addressModel.getCountry());
+            addressDto.setCity(addressModel.getCity());
+            addressDto.setStreet(addressModel.getStreet());
+            addressDto.setId(addressModel.getId());
+
             userDto.setAdress(addressDto);
+            List<RoleDto> roleDtos = new ArrayList<>();
+            for (RoleModel roleModel: userModel.getRoleList()){
+                RoleDto roleDto = new RoleDto();
+                roleDto.setId(roleModel.getId());
+                roleDto.setName(roleModel.getName());
+                List<PrivilegeDto> privilegeDtos = new ArrayList<>();
+                for (PrivilegeModel privilegeModel: roleModel.getPrivileges()){
+                    PrivilegeDto privilegeDto = new PrivilegeDto();
+                    privilegeDto.setId(privilegeModel.getId());
+                    privilegeDto.setName(privilegeModel.getName());
+                    privilegeDtos.add(privilegeDto);
+                }
+                roleDto.setPrivileges(privilegeDtos);
+                roleDtos.add(roleDto);
+            }
+            userDto.setRoleList(roleDtos);
             usersDto.add(userDto);
 
         }
         return usersDto;
     }
-
-    public void update(UserDto userDto) {
+    public void update(UserDto userDto){
         Optional<UserModel> newUser = userRepository.findById(userDto.getId());
-        if (newUser.isPresent()) {
+        if(newUser.isPresent()){
             UserModel userModel = newUser.get();
-            userModel.setEmail(userDto.getEmail());
-            userDto.setUrl(userDto.getUrl());
+
+            if(userDto.getNewPassword()!=null&&userDto.getNewPassword()!=""){
+                userModel.setPassword(userDto.getPassword());
+            }
             userRepository.save(userModel);
         }
     }
-
-    public UserDto findById(Long id) {
-        Optional<UserModel> userModel = userRepository.findById(id);
+    public UserDto findById(Long id ){
+        Optional<UserModel>userModel = userRepository.findById(id);
         UserDto userDto = new UserDto();
-        if (userModel.isPresent()) {
+        if(userModel.isPresent()){
             userDto.setId(userModel.get().getId());
-            userDto.setUrl(userModel.get().getUrl());
             userDto.setEmail(userModel.get().getEmail());
+            userDto.setPassword(userModel.get().getPassword());
+            userDto.setRole(userModel.get().getRole().name());
 
             AdressModel addressModel = userModel.get().getAdress();
             AddressDto addressDto = new AddressDto();
@@ -100,39 +122,77 @@ public class UserService {
             addressDto.setId(addressModel.getId());
 
             userDto.setAdress(addressDto);
-        }
-        return userDto;
-
-    }
-    public UserDto findByUsername(String username){
-        UserModel userModel=userRepository.findByEmail(username).orElse(null);
-        UserDto userDto = new UserDto();
-        userDto.setId(userModel.getId());
-        userDto.setEmail(userModel.getEmail());
-        userDto.setPassword(userModel.getPassword());
-        AdressModel addressModel = userModel.getAdress();
-        AddressDto addressDto = new AddressDto();
-
-        addressDto.setZipCode(addressModel.getZipCode());
-        addressDto.setCountry(addressModel.getCountry());
-        addressDto.setCity(addressModel.getCity());
-        addressDto.setStreet(addressModel.getStreet());
-        addressDto.setId(addressModel.getId());
-        userDto.setAdress(addressDto);
-        return userDto;
-    }
-
-
-    public AuthTokenDto login(String username, String password) throws AccessDeniedException {
-        Optional<UserModel> userModelOptional = userRepository.findByEmail(username);
-        if (userModelOptional.isPresent()) {
-            UserModel userModel = userModelOptional.get();
-            if (password.equals(userModel.getPassword())) {
-                AuthTokenDto authTokenDto = new AuthTokenDto();
-                authTokenDto.setTicket(username);
-
+            List<RoleDto> roleDtos = new ArrayList<>();
+            //de aici o sa sterg
+            for (RoleModel roleModel: userModel.get().getRoleList()){
+                RoleDto roleDto = new RoleDto();
+                roleDto.setId(roleModel.getId());
+                roleDto.setName(roleModel.getName());
+                List<PrivilegeDto> privilegeDtos = new ArrayList<>();
+                for (PrivilegeModel privilegeModel: roleModel.getPrivileges()){
+                    PrivilegeDto privilegeDto = new PrivilegeDto();
+                    privilegeDto.setId(privilegeModel.getId());
+                    privilegeDto.setName(privilegeModel.getName());
+                    privilegeDtos.add(privilegeDto);
+                }
+                roleDto.setPrivileges(privilegeDtos);
+                roleDtos.add(roleDto);
             }
+            userDto.setRoleList(roleDtos);
+            // pana aici
         }
-        throw new AccessDeniedException("wrong username or password");
+
+        return userDto;
+
     }
+
+    public UserDto findByUsername(String username){
+        UserModel userModel=userRepository.getUserModelByEmail(username).orElse(new UserModel());
+        UserDto userDto = new UserDto();
+
+            userDto.setId(userModel.getId());
+            userDto.setEmail(userModel.getEmail());
+            userDto.setPassword(userModel.getPassword());
+            userDto.setRole(userModel.getRole().name());
+
+            AdressModel addressModel = userModel.getAdress();
+            AddressDto addressDto = new AddressDto();
+
+            addressDto.setZipCode(addressModel.getZipCode());
+            addressDto.setCountry(addressModel.getCountry());
+            addressDto.setCity(addressModel.getCity());
+            addressDto.setStreet(addressModel.getStreet());
+            addressDto.setId(addressModel.getId());
+
+            userDto.setAdress(addressDto);
+            List<RoleDto> roleDtos = new ArrayList<>();
+            for (RoleModel roleModel: userModel.getRoleList()){
+                RoleDto roleDto = new RoleDto();
+                roleDto.setId(roleModel.getId());
+                roleDto.setName(roleModel.getName());
+                List<PrivilegeDto> privilegeDtos = new ArrayList<>();
+                for (PrivilegeModel privilegeModel: roleModel.getPrivileges()){
+                    PrivilegeDto privilegeDto = new PrivilegeDto();
+                    privilegeDto.setId(privilegeModel.getId());
+                    privilegeDto.setName(privilegeModel.getName());
+                    privilegeDtos.add(privilegeDto);
+                }
+                roleDto.setPrivileges(privilegeDtos);
+                roleDtos.add(roleDto);
+            }
+            userDto.setRoleList(roleDtos);
+
+
+        return userDto;
+    }
+
+  public void updatePriv(String username, long id){
+        UserModel userModel = userRepository.findById(id).orElse(null);
+        assert userModel != null;
+        userModel.setRole(Enum.valueOf(username));
+
+
+  }
+
+
 }

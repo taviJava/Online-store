@@ -1,6 +1,7 @@
-package com.sda.demo.common.util;
+package com.project.demo.common.util;
 
 public class AuthenticationBean {
+
     private String message;
 
     public AuthenticationBean(String message) {

@@ -1,4 +1,4 @@
-package com.sda.demo.persitance.model;
+package com.project.demo.persitance.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class OrderModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;
     private double totalCost;
@@ -20,9 +20,22 @@ public class OrderModel {
     @Enumerated(EnumType.STRING)
     private StatusModel status;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("orderModel")
     private List<OrderLineModel> orderLines = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PromoCode promoCode;
+
+    private String additionalComment;
+
+    public String getAdditionalComment() {
+        return additionalComment;
+    }
+
+    public void setAdditionalComment(String additionalComment) {
+        this.additionalComment = additionalComment;
+    }
 
     public long getId() {
         return id;
@@ -86,5 +99,13 @@ public class OrderModel {
 
     public void setOrderLines(List<OrderLineModel> orderLines) {
         this.orderLines = orderLines;
+    }
+
+    public PromoCode getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(PromoCode promoCode) {
+        this.promoCode = promoCode;
     }
 }

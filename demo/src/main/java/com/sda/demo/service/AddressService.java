@@ -1,13 +1,12 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-import com.sda.demo.dto.AddressDto;
-import com.sda.demo.dto.CategoryDto;
-import com.sda.demo.dto.UserDto;
-import com.sda.demo.persitance.model.AdressModel;
-import com.sda.demo.persitance.model.CategoryModel;
-import com.sda.demo.persitance.model.UserModel;
-import com.sda.demo.repository.AdressRepository;
-import com.sda.demo.repository.UserRepository;
+
+import com.project.demo.persitance.dto.AddressDto;
+import com.project.demo.persitance.dto.UserDto;
+import com.project.demo.persitance.model.AdressModel;
+import com.project.demo.persitance.model.UserModel;
+import com.project.demo.repository.AdressRepository;
+import com.project.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,7 +73,6 @@ public class AddressService {
         userDto.setId(userModel.getId());
         userDto.setEmail(userModel.getEmail());
         userDto.setId(userModel.getId());
-        userDto.setUrl(userModel.getUrl());
         addressDto.setUserDto(userDto);
         return addressDto;
 

@@ -1,8 +1,9 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-import com.sda.demo.dto.PrivilegeDto;
-import com.sda.demo.persitance.model.PrivilegeModel;
-import com.sda.demo.repository.PrivilegeRepository;
+
+import com.project.demo.persitance.dto.PrivilegeDto;
+import com.project.demo.persitance.model.PrivilegeModel;
+import com.project.demo.repository.PrivilegeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,7 @@ public class PrivilegeService {
 
     public void update(PrivilegeDto privilegeDto){
         PrivilegeModel privilegeModel = privilegeRepository.findById(privilegeDto.getId()).orElse(null);
+        assert privilegeModel != null;
         privilegeModel.setName(privilegeDto.getName());
         privilegeRepository.save(privilegeModel);
     }

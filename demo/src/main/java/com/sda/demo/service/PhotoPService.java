@@ -1,10 +1,11 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-
-import com.sda.demo.persitance.model.PhotoPModel;
-import com.sda.demo.persitance.model.ProductModel;
-import com.sda.demo.repository.PhotoPRepository;
-import com.sda.demo.repository.ProductRepository;
+import com.project.demo.persitance.model.PhotoP;
+import com.project.demo.persitance.model.PhotoU;
+import com.project.demo.persitance.model.ProductModel;
+import com.project.demo.persitance.model.UserModel;
+import com.project.demo.repository.PhotoPRepository;
+import com.project.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -25,9 +26,9 @@ public class PhotoPService {
     @Autowired
     private ProductRepository productRepository;
 
-    public PhotoPModel store(MultipartFile file) throws IOException, InterruptedException {
+    public PhotoP store(MultipartFile file) throws IOException, InterruptedException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        PhotoPModel photoP = new PhotoPModel(fileName, file.getContentType(), file.getBytes());
+        PhotoP photoP = new PhotoP(fileName, file.getContentType(), file.getBytes());
         TimeUnit.SECONDS.sleep(3);
         List<ProductModel> products = productRepository.findAll();
         ProductModel productModel = products.get(products.size()-1);
@@ -35,14 +36,14 @@ public class PhotoPService {
         return photoPRepository.save(photoP);
     }
 
-    public PhotoPModel getPhoto(String id) {
+    public PhotoP getPhoto(String id) {
         return photoPRepository.findById(id).get();
     }
 
 
-    public Stream<PhotoPModel> getProductPhoto(long id) {
+    public Stream<PhotoP> getProductPhoto(long id) {
         ProductModel productModel = productRepository.findById(id).orElse(null);
-        List<PhotoPModel> list = new ArrayList<>();
+        List<PhotoP> list = new ArrayList<>();
         list.add(productModel.getPhotos());
         return list.stream();
     }

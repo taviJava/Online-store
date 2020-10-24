@@ -1,6 +1,7 @@
-package com.sda.demo.repository;
+package com.project.demo.repository;
 
-import com.sda.demo.persitance.model.PhotoU;
+
+import com.project.demo.persitance.model.PhotoU;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

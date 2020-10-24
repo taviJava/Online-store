@@ -1,4 +1,4 @@
-package com.sda.demo.persitance.model;
+package com.project.demo.persitance.model;
 
 public enum ProductType {
     piece, perKg;

@@ -1,9 +1,9 @@
-package com.sda.demo.repository;
+package com.project.demo.repository;
 
-import com.sda.demo.persitance.model.PhotoPModel;
+import com.project.demo.persitance.model.PhotoP;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PhotoPRepository extends JpaRepository<PhotoPModel,String> {
+public interface PhotoPRepository extends JpaRepository<PhotoP,String> {
 }

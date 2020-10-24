@@ -1,10 +1,8 @@
-package com.sda.demo.service;
+package com.project.demo.service;
 
-import com.sda.demo.dto.AddressDto;
-import com.sda.demo.dto.ManufacturerDto;
-import com.sda.demo.persitance.model.AdressModel;
-import com.sda.demo.persitance.model.ManufacturerModel;
-import com.sda.demo.repository.ManufacturerRepository;
+import com.project.demo.persitance.dto.ManufacturerDto;
+import com.project.demo.persitance.model.ManufacturerModel;
+import com.project.demo.repository.ManufacturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

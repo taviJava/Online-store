@@ -1,4 +1,4 @@
-package com.sda.demo.common.util;
+package com.project.demo.common.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -24,7 +24,7 @@ public class Hasher {
             }
         }
         return hexString.toString();
-    }
+        }
 
 
 }

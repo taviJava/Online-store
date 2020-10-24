@@ -1,8 +1,8 @@
-package com.sda.demo.controller;
+package com.project.demo.controller;
 
-import com.sda.demo.dto.CategoryDto;
-import com.sda.demo.dto.UserDto;
-import com.sda.demo.service.CategoryService;
+
+import com.project.demo.persitance.dto.CategoryDto;
+import com.project.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +39,9 @@ public class CategoryController {
     @PutMapping("/category")
     public void update(@RequestBody CategoryDto categoryDto) {
         categoryService.update(categoryDto);
-
+    }
+    @GetMapping("/categorySubById/{id}")
+    public List<CategoryDto> getSubCategory(@PathVariable(name = "id") Long id) {
+        return categoryService.findCategoriesByParent(id);
     }
 }

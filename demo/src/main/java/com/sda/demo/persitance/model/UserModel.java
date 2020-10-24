@@ -1,9 +1,9 @@
-package com.sda.demo.persitance.model;
+package com.project.demo.persitance.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sda.demo.common.util.Hasher;
+import com.project.demo.common.util.Hasher;
 
 
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
 
@@ -26,11 +26,12 @@ public class UserModel {
 
     private String email;
 
-    private String url;
-
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 
     private AdressModel adress;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<RoleModel> roleList;
@@ -38,14 +39,6 @@ public class UserModel {
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnoreProperties("user")
     private PhotoU photos;
-
-    public PhotoU getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(PhotoU photos) {
-        this.photos = photos;
-    }
 
     public long getId() {
         return id;
@@ -79,14 +72,6 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public AdressModel getAdress() {
         return adress;
     }
@@ -101,5 +86,21 @@ public class UserModel {
 
     public void setRoleList(List<RoleModel> roleList) {
         this.roleList = roleList;
+    }
+
+    public PhotoU getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(PhotoU photos) {
+        this.photos = photos;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
