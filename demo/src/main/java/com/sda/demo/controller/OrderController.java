@@ -1,6 +1,8 @@
 package com.sda.demo.controller;
 
 import com.sda.demo.dto.OrderDto;
+import com.sda.demo.persitance.model.OrderModel;
+import com.sda.demo.repository.OrderRepository;
 import com.sda.demo.service.OrderService;
 import com.sda.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,32 @@ public class OrderController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderRepository orderRepository;
+
+
+    @PostMapping("/orders")
+    public void add(@RequestBody OrderModel orderModel){
+        orderRepository.save(orderModel);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @PostMapping("/order/{username}/{id}")
     public void save(@PathVariable(name = "username") String username, @PathVariable(name = "id") Long productID) {
