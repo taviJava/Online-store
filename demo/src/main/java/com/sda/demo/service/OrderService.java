@@ -1,12 +1,10 @@
 package com.sda.demo.service;
 
-import com.sda.demo.persitance.dto.OrderDto;
-import com.sda.demo.persitance.dto.OrderLineDto;
-import com.sda.demo.persitance.dto.ProductDto;
-import com.sda.demo.persitance.dto.PromoCodeDto;
+import com.sda.demo.persitance.dto.*;
 import com.sda.demo.persitance.model.*;
 import com.sda.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -45,32 +43,62 @@ public class OrderService {
         return new OrderModel();
     }
 
+    public ProductDto converProduct(long id){
+        ProductModel productModel = productRepository.findById(id).orElse(null);
+        ProductDto productDto = new ProductDto();
+        if (productModel!=null){
+            productDto.setId(productModel.getId());
+            productDto.setPrice(productModel.getPrice());
+            productDto.setName(productModel.getName());
+            // productDto.setPhoto(productModel.getPhoto());
+            productDto.setDescription(productModel.getDescription());
+            CategoryDto categoryDto =new CategoryDto();
+            categoryDto.setId(productModel.getCategory().getId());
+            categoryDto.setName(productModel.getCategory().getName());
+            productDto.setCategory(categoryDto);
+            ManufacturerDto manufacturerDto = new ManufacturerDto();
+            manufacturerDto.setId(productModel.getManufacturer().getId());
+            manufacturerDto.setName(productModel.getManufacturer().getName());
+            productDto.setManufacturer(manufacturerDto);
+            return productDto;
+        }
+        return productDto;
+    }
+
     public void addToCart(String username, Long productID){
-       OrderModel order = orderModel(username);
+      // OrderModel order = orderModel(username);
+        OrderDto orderDto = findByUserName(username);
+        ProductDto productDto = converProduct(productID);
 
         boolean isAlreadyInBasket = false;
-            List<OrderLineModel> orderLineModels = order.getOrderLines();
-            for (OrderLineModel orderLineModel: orderLineModels) {
-                if(orderLineModel.getProduct().getId() == productID){
-                    orderLineModel.setProductsQuantity(orderLineModel.getProductsQuantity() + 1);
-                    orderLineModel.setProductPrice(orderLineModel.getProductsQuantity() * orderLineModel.getProduct().getPrice());
+            List<OrderLineDto> orderLineDtos = orderDto.getOrderLines();
+            for (OrderLineDto orderLineDto: orderLineDtos) {
+                if(orderLineDto.getProduct().getId() == productID){
+                    orderLineDto.setProductsQuantity(orderLineDto.getProductsQuantity() + 1);
+                    orderLineDto.setProductPrice(orderLineDto.getProductsQuantity() * orderLineDto.getProduct().getPrice());
                     isAlreadyInBasket = true;
                 }
             }
             if(!isAlreadyInBasket){
-                OrderLineModel orderLineModel = new OrderLineModel();
-                orderLineModel.setProductsQuantity(1);
-                orderLineModel.setProduct(productRepository.findById(productID).orElse(null));
-                orderLineModel.setProductPrice(orderLineModel.getProductsQuantity() * orderLineModel.getProduct().getPrice());
-                order.getOrderLines().add(orderLineModel);
-                order.setTotalCost(totalPrice(order.getOrderLines()));
+                OrderLineDto orderLineDto = new OrderLineDto();
+                orderLineDto.setProductsQuantity(1);
+                orderLineDto.setProduct(productDto);
+                orderLineDto.setProductPrice(orderLineDto.getProductsQuantity() * orderLineDto.getProduct().getPrice());
+                orderDto.getOrderLines().add(orderLineDto);
+                orderDto.setTotalCost(totalPrice(orderDto.getOrderLines()));
                 orderRepository.save(order);
             }
             order.setTotalCost(totalPrice(order.getOrderLines()));
             orderRepository.save(order);
         }
 
+    public OrderModel convertOrderDtoinModel(OrderDto orderDto){
+        OrderModel orderModel = new OrderModel();
+        orderModel.setId(orderDto.getId());
+        orderModel.setDeliveryAddress(orderDto.getDeliveryAddress());
+        orderModel.setAdditionalComment(orderDto.getAdditionalComment());
 
+    }
 
     public void deleteById(Long id){
         orderRepository.deleteById(id);
@@ -159,9 +187,9 @@ public class OrderService {
 
     }
 
-    public Double totalPrice(List<OrderLineModel> orderLineModels){
+    public Double totalPrice(List<OrderLineDto> orderLineDtos){
         double total = 0.0;
-        for (OrderLineModel olm: orderLineModels) {
+        for (OrderLineDto olm: orderLineDtos) {
             total = total + olm.getProduct().getPrice() * olm.getProductsQuantity();
         }
         return total;
