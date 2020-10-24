@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../model/user';
 import {map} from 'rxjs/operators';
-import {CanActivate} from '@angular/router';
-import {Role} from '../../security/model/role';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,8 @@ export class AuthenticationService {
   public password: string;
   public user: User;
   public isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public roles: Role[];
+  public ret = false;
+  public isPrivilege: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, public userService: UserService) {
   }
@@ -81,32 +82,19 @@ export class AuthenticationService {
     }
     return user;
   }
-
-  hasPrivilege(privS: string): boolean {
-    const user = JSON.parse(sessionStorage.getItem(this.USER_DATA_SESSION_ATTRIBUTE_NAME));
-    if (user && user.roleList) {
-      for (const role of user.roleList) {
-        for (const priv of role.privilegeList) {
-          if (priv.name === privS) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
+  // tslint:disable-next-line:typedef
+  returnUser(){
+    return JSON.parse(sessionStorage.getItem(this.USER_DATA_SESSION_ATTRIBUTE_NAME));
   }
 
-  userPrivilegeAdm(): boolean {
-    this.userService.getRolesByUsername('tavi.zorila@gmail.com').subscribe(data => {
-      this.roles = [];
-      this.roles = data;
-    });
-    for (const role of this.roles){
-      if (this.roles.length > 0){
-        return true;
-      }
-    }
+  hasPrivilege(): boolean {
+    const user = JSON.parse(sessionStorage.getItem(this.USER_DATA_SESSION_ATTRIBUTE_NAME));
+    if (user && user.role === 'Administrator') {
+            this.isPrivilege.next(true);
+            return true;
+        }
+    this.isPrivilege.next(false);
     return false;
-    }
+  }
 
 }

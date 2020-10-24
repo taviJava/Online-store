@@ -5,6 +5,7 @@ import {UserService} from '../../service/user.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Address} from '../../model/address';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {AuthenticationService} from '../../service/authentication.service';
 
 
 @Component({
@@ -20,10 +21,17 @@ export class UserAddComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
+  matched = true;
+  confirmPassword = '';
+  isLoggedIn = false;
+  currentUser: User;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              private authService: AuthenticationService) {
+    this.currentUser = new User();
+    this.currentUser.email = 'Please Log-in';
   }
 
   ngOnInit(): void {
@@ -31,13 +39,33 @@ export class UserAddComponent implements OnInit {
     this.address = new Address();
     this.myGroup = new FormGroup({
       email: new FormControl(),
+      password: new FormControl(),
       street: new FormControl(),
       city: new FormControl(),
       country: new FormControl(),
-      zipcode: new FormControl()
+      zipcode: new FormControl(),
+      confirmPassword: new FormControl()
+    });
+    this.authService.isLoggedIn.subscribe(data => {
+      this.isLoggedIn = data;
+      this.currentUser = new User();
+      if (this.isLoggedIn) {
+        this.currentUser = JSON.parse(sessionStorage.getItem(this.authService.USER_DATA_SESSION_ATTRIBUTE_NAME));
+        if (this.currentUser === null) {
+          this.currentUser = new User();
+        }
+      }
     });
   }
-
+  // tslint:disable-next-line:typedef
+  matchPasswords() {
+    this.confirmPassword = this.myGroup.get('confirmPassword').value;
+    if (this.user.newPassword === '' || this.user.newPassword === this.confirmPassword) {
+      this.matched = true;
+    } else {
+      this.matched = false;
+    }
+  }
   // tslint:disable-next-line:typedef
   getAll() {
     this.router.navigate(['users']);
@@ -46,6 +74,7 @@ export class UserAddComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onSubmit() {
     this.user.email = this.myGroup.get('email').value;
+    this.user.password = this.myGroup.get('password').value;
     this.address.street = this.myGroup.get('street').value;
     this.address.city = this.myGroup.get('city').value;
     this.address.zipCode = this.myGroup.get('zipcode').value;
@@ -85,5 +114,9 @@ export class UserAddComponent implements OnInit {
       });
 
     this.selectedFiles = undefined;
+  }
+
+  login(): boolean{
+    return this.authService.isLoggedIn.getValue();
   }
 }

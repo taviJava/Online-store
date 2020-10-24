@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./category-edit.component.css']
 })
 export class CategoryEditComponent implements OnInit {
-  category: Category;
+  category: Category = new Category();
   id: number;
 
   constructor(private route: ActivatedRoute,
@@ -21,6 +21,7 @@ export class CategoryEditComponent implements OnInit {
     this.category = new Category();
     this.id = this.route.snapshot.params.id;
     this.categoryService.getById(this.id).subscribe(data => {
+      this.category = new Category();
       this.category = data;
     });
   }

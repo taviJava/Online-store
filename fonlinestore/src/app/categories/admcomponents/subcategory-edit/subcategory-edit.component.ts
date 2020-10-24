@@ -22,6 +22,7 @@ export class SubcategoryEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.subcategory = new Category();
     this.categories = [];
     this.categoryservice.findAll().subscribe(data => {
       this.categories = [];

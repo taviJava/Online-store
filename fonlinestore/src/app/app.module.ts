@@ -29,12 +29,20 @@ import {UserListComponent} from './users/admcomponents/user-list/user-list.compo
 import { LoginComponent } from './users/admcomponents/login/login.component';
 import {UserService} from './users/service/user.service';
 import {HttpInterceptorService} from './users/service/http-interceptor.service';
-import { RoleComponent } from './security/admcomponents/role/role.component';
-import { PrivilegeComponent } from './security/admcomponents/privilege/privilege.component';
-import { AddPrivilegeComponent } from './security/admcomponents/add-privilege/add-privilege.component';
-import { AddRoleComponent } from './security/admcomponents/add-role/add-role.component';
-import { RolePrivilegeComponent } from './security/admcomponents/role-privilege/role-privilege.component';
-import { RoleUserComponent } from './security/admcomponents/role-user/role-user.component';
+import {CategoryEditComponent} from './categories/admcomponents/category-edit/category-edit.component';
+import {SubcategoryEditComponent} from './categories/admcomponents/subcategory-edit/subcategory-edit.component';
+import { ProductsComponent } from './products/components/products/products.component';
+import { ProductViewComponent } from './products/components/product-view/product-view.component';
+import { OrderComponent } from './orders/components/order/order.component';
+import { OrderListComponent } from './orders/components/order-list/order-list.component';
+import { OrderAddComponent } from './orders/components/order-add/order-add.component';
+import { TestComponent } from './test/componets/test/test.component';
+import { ProductsCatComponent } from './products/components/products-cat/products-cat.component';
+import {ManufacturerEditComponent} from './manufacturers/admcomponents/manufacturer-edit/manufacturer-edit.component';
+import { PromoCodeAddComponent } from './promoCodes/admcomponents/promo-code-add/promo-code-add.component';
+import { PromoCodeEditComponent } from './promoCodes/admcomponents/promo-code-edit/promo-code-edit.component';
+import {PromoCodeListComponent} from './promoCodes/admcomponents/promo-code-list/promo-code-list.component';
+import { RoleUsersComponent } from './users/admcomponents/role-users/role-users.component';
 
 
 
@@ -55,12 +63,20 @@ import { RoleUserComponent } from './security/admcomponents/role-user/role-user.
     UserEditComponent,
     UserListComponent,
     LoginComponent,
-    RoleComponent,
-    PrivilegeComponent,
-    AddPrivilegeComponent,
-    AddRoleComponent,
-    RolePrivilegeComponent,
-    RoleUserComponent,
+    CategoryEditComponent,
+    SubcategoryEditComponent,
+    ProductsComponent,
+    ProductViewComponent,
+    OrderComponent,
+    OrderListComponent,
+    OrderAddComponent,
+    TestComponent,
+    ProductsCatComponent,
+    ManufacturerEditComponent,
+    PromoCodeListComponent,
+    PromoCodeAddComponent,
+   PromoCodeEditComponent,
+   RoleUsersComponent,
   ],
   imports: [
     BrowserModule,
