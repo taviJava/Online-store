@@ -93,15 +93,24 @@ public class UserService {
         return usersDto;
     }
     public void update(UserDto userDto){
-        Optional<UserModel> newUser = userRepository.findById(userDto.getId());
-        if(newUser.isPresent()){
-            UserModel userModel = newUser.get();
-
-            if(userDto.getNewPassword()!=null&&userDto.getNewPassword()!=""){
-                userModel.setPassword(userDto.getPassword());
-            }
+        UserModel userModel = convertUser(userDto);
             userRepository.save(userModel);
         }
+
+  public UserModel convertUser(UserDto userDto){
+      Optional<UserModel> newUser = userRepository.findById(userDto.getId());
+      UserModel userModel = newUser.orElse(null);
+      assert userModel != null;
+      userModel.setRole(Role.valueOf(userDto.getRole()));
+      //userModel.setEmail(userDto.getEmail());
+      AdressModel adressModel = new AdressModel();
+      AddressDto addressDto = userDto.getAdress();
+      adressModel.setCity(addressDto.getCity());
+      adressModel.setCountry(addressDto.getCountry());
+      adressModel.setId(addressDto.getId());
+      adressModel.setStreet(addressDto.getStreet());
+      userModel.setAdress(adressModel);
+     return userModel;
     }
     public UserDto findById(Long id ){
         Optional<UserModel>userModel = userRepository.findById(id);
@@ -186,13 +195,7 @@ public class UserService {
         return userDto;
     }
 
-  public void updatePriv(String username, long id){
-        UserModel userModel = userRepository.findById(id).orElse(null);
-        assert userModel != null;
-        userModel.setRole(Enum.valueOf(username));
 
-
-  }
 
 
 }
