@@ -1,14 +1,14 @@
-package com.project.demo.service;
+package com.sda.demo.service;
 
 
-import com.project.demo.persitance.dto.PrivilegeDto;
-import com.project.demo.persitance.dto.RoleDto;
-import com.project.demo.persitance.dto.UserDto;
-import com.project.demo.persitance.model.PrivilegeModel;
-import com.project.demo.persitance.model.RoleModel;
-import com.project.demo.persitance.model.UserModel;
-import com.project.demo.repository.RoleRepository;
-import com.project.demo.repository.UserRepository;
+import com.sda.demo.persitance.dto.PrivilegeDto;
+import com.sda.demo.persitance.dto.RoleDto;
+import com.sda.demo.persitance.dto.UserDto;
+import com.sda.demo.persitance.model.PrivilegeModel;
+import com.sda.demo.persitance.model.RoleModel;
+import com.sda.demo.persitance.model.UserModel;
+import com.sda.demo.repository.RoleRepository;
+import com.sda.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

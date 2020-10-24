@@ -1,4 +1,4 @@
-package com.project.demo.common.util;
+package com.sda.demo.common.util;
 
 public class AuthenticationBean {
 

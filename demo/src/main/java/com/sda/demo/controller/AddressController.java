@@ -1,8 +1,8 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
 
-import com.project.demo.persitance.dto.AddressDto;
-import com.project.demo.service.AddressService;
+import com.sda.demo.persitance.dto.AddressDto;
+import com.sda.demo.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

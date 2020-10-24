@@ -1,7 +1,7 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
-import com.project.demo.persitance.dto.PromoCodeDto;
-import com.project.demo.service.PromoCodeService;
+import com.sda.demo.persitance.dto.PromoCodeDto;
+import com.sda.demo.service.PromoCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,8 +1,8 @@
-package com.project.demo.service;
+package com.sda.demo.service;
 
-import com.project.demo.persitance.dto.PromoCodeDto;
-import com.project.demo.persitance.model.PromoCode;
-import com.project.demo.repository.PromoCodeRepository;
+import com.sda.demo.persitance.dto.PromoCodeDto;
+import com.sda.demo.persitance.model.PromoCode;
+import com.sda.demo.repository.PromoCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

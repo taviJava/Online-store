@@ -1,11 +1,11 @@
-package com.project.demo.service;
+package com.sda.demo.service;
 
-import com.project.demo.persitance.dto.ProductDto;
-import com.project.demo.persitance.dto.ReviewDto;
-import com.project.demo.persitance.model.ProductModel;
-import com.project.demo.persitance.model.ReviewModel;
-import com.project.demo.repository.ProductRepository;
-import com.project.demo.repository.ReviewRepository;
+import com.sda.demo.persitance.dto.ProductDto;
+import com.sda.demo.persitance.dto.ReviewDto;
+import com.sda.demo.persitance.model.ProductModel;
+import com.sda.demo.persitance.model.ReviewModel;
+import com.sda.demo.repository.ProductRepository;
+import com.sda.demo.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

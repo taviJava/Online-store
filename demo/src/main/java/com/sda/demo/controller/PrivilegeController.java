@@ -1,7 +1,7 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
-import com.project.demo.persitance.dto.PrivilegeDto;
-import com.project.demo.service.PrivilegeService;
+import com.sda.demo.persitance.dto.PrivilegeDto;
+import com.sda.demo.service.PrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

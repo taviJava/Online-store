@@ -1,16 +1,16 @@
-package com.project.demo.service;
+package com.sda.demo.service;
 
 
-import com.project.demo.persitance.dto.CategoryDto;
-import com.project.demo.persitance.dto.ManufacturerDto;
-import com.project.demo.persitance.dto.ProductDto;
-import com.project.demo.persitance.model.CategoryModel;
-import com.project.demo.persitance.model.ManufacturerModel;
-import com.project.demo.persitance.model.ProductModel;
-import com.project.demo.persitance.model.ProductType;
-import com.project.demo.repository.CategoryRepository;
-import com.project.demo.repository.ManufacturerRepository;
-import com.project.demo.repository.ProductRepository;
+import com.sda.demo.persitance.dto.CategoryDto;
+import com.sda.demo.persitance.dto.ManufacturerDto;
+import com.sda.demo.persitance.dto.ProductDto;
+import com.sda.demo.persitance.model.CategoryModel;
+import com.sda.demo.persitance.model.ManufacturerModel;
+import com.sda.demo.persitance.model.ProductModel;
+import com.sda.demo.persitance.model.ProductType;
+import com.sda.demo.repository.CategoryRepository;
+import com.sda.demo.repository.ManufacturerRepository;
+import com.sda.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

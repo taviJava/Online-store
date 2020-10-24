@@ -1,9 +1,9 @@
-package com.project.demo.controller;
-import com.project.demo.persitance.dto.OrderDto;
-import com.project.demo.persitance.model.OrderModel;
-import com.project.demo.repository.OrderRepository;
-import com.project.demo.service.OrderService;
-import com.project.demo.service.ProductService;
+package com.sda.demo.controller;
+import com.sda.demo.persitance.dto.OrderDto;
+import com.sda.demo.persitance.model.OrderModel;
+import com.sda.demo.repository.OrderRepository;
+import com.sda.demo.service.OrderService;
+import com.sda.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;

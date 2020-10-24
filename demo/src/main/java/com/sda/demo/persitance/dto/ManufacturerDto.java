@@ -1,8 +1,8 @@
-package com.project.demo.persitance.dto;
+package com.sda.demo.persitance.dto;
 
 
 
-import com.project.demo.persitance.model.ProductModel;
+import com.sda.demo.persitance.model.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;

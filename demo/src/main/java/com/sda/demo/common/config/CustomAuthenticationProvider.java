@@ -1,8 +1,8 @@
-package com.project.demo.common.config;
+package com.sda.demo.common.config;
 
-import com.project.demo.common.util.Hasher;
-import com.project.demo.persitance.model.UserModel;
-import com.project.demo.repository.UserRepository;
+import com.sda.demo.common.util.Hasher;
+import com.sda.demo.persitance.model.UserModel;
+import com.sda.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

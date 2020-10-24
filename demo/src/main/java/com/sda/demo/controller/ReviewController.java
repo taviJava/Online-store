@@ -1,7 +1,7 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
-import com.project.demo.persitance.dto.ReviewDto;
-import com.project.demo.service.ReviewService;
+import com.sda.demo.persitance.dto.ReviewDto;
+import com.sda.demo.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

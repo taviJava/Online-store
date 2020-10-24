@@ -1,6 +1,6 @@
-package com.project.demo.persitance.dto;
+package com.sda.demo.persitance.dto;
 
-import com.project.demo.persitance.model.PromoCode;
+import com.sda.demo.persitance.model.PromoCode;
 
 import java.sql.Date;
 import java.util.ArrayList;

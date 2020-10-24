@@ -1,7 +1,7 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
-import com.project.demo.persitance.dto.RoleDto;
-import com.project.demo.service.RoleService;
+import com.sda.demo.persitance.dto.RoleDto;
+import com.sda.demo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

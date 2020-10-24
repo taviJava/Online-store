@@ -1,4 +1,4 @@
-package com.project.demo.persitance.dto.files;
+package com.sda.demo.persitance.dto.files;
 
 public class ResponseFileP {
     private String name;

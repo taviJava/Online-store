@@ -1,9 +1,9 @@
-package com.project.demo.service;
+package com.sda.demo.service;
 
 
-import com.project.demo.persitance.dto.CategoryDto;
-import com.project.demo.persitance.model.CategoryModel;
-import com.project.demo.repository.CategoryRepository;
+import com.sda.demo.persitance.dto.CategoryDto;
+import com.sda.demo.persitance.model.CategoryModel;
+import com.sda.demo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

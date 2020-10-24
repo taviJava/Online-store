@@ -1,7 +1,7 @@
-package com.project.demo.repository;
+package com.sda.demo.repository;
 
 
-import com.project.demo.persitance.model.PrivilegeModel;
+import com.sda.demo.persitance.model.PrivilegeModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

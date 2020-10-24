@@ -1,7 +1,7 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
 
-import com.project.demo.persitance.dto.files.ResponseMessage;
+import com.sda.demo.persitance.dto.files.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

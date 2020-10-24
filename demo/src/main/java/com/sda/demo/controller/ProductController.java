@@ -1,15 +1,15 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
 
-import com.project.demo.persitance.dto.ProductDto;
-import com.project.demo.persitance.dto.files.ResponseFile;
-import com.project.demo.persitance.dto.files.ResponseMessage;
-import com.project.demo.persitance.model.PhotoP;
-import com.project.demo.persitance.model.ProductModel;
-import com.project.demo.repository.PhotoPRepository;
-import com.project.demo.repository.ProductRepository;
-import com.project.demo.service.PhotoPService;
-import com.project.demo.service.ProductService;
+import com.sda.demo.persitance.dto.ProductDto;
+import com.sda.demo.persitance.dto.files.ResponseFile;
+import com.sda.demo.persitance.dto.files.ResponseMessage;
+import com.sda.demo.persitance.model.PhotoP;
+import com.sda.demo.persitance.model.ProductModel;
+import com.sda.demo.repository.PhotoPRepository;
+import com.sda.demo.repository.ProductRepository;
+import com.sda.demo.service.PhotoPService;
+import com.sda.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

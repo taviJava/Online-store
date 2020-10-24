@@ -1,4 +1,4 @@
-package com.project.demo.common.util;
+package com.sda.demo.common.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

@@ -1,11 +1,11 @@
-package com.project.demo.service;
+package com.sda.demo.service;
 
-import com.project.demo.persitance.model.PhotoP;
-import com.project.demo.persitance.model.PhotoU;
-import com.project.demo.persitance.model.ProductModel;
-import com.project.demo.persitance.model.UserModel;
-import com.project.demo.repository.PhotoPRepository;
-import com.project.demo.repository.ProductRepository;
+import com.sda.demo.persitance.model.PhotoP;
+import com.sda.demo.persitance.model.PhotoU;
+import com.sda.demo.persitance.model.ProductModel;
+import com.sda.demo.persitance.model.UserModel;
+import com.sda.demo.repository.PhotoPRepository;
+import com.sda.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

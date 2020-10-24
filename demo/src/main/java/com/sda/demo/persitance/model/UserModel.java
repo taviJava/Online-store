@@ -1,9 +1,9 @@
-package com.project.demo.persitance.model;
+package com.sda.demo.persitance.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.demo.common.util.Hasher;
+import com.sda.demo.common.util.Hasher;
 
 
 import javax.persistence.*;

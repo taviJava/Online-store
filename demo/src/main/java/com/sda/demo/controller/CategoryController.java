@@ -1,8 +1,8 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
 
-import com.project.demo.persitance.dto.CategoryDto;
-import com.project.demo.service.CategoryService;
+import com.sda.demo.persitance.dto.CategoryDto;
+import com.sda.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

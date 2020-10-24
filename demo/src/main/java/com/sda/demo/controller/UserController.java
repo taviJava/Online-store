@@ -1,19 +1,19 @@
-package com.project.demo.controller;
+package com.sda.demo.controller;
 
 
-import com.project.demo.common.util.AuthenticationBean;
-import com.project.demo.persitance.dto.UserDto;
-import com.project.demo.persitance.dto.files.ResponseFile;
-import com.project.demo.persitance.dto.files.ResponseMessage;
-import com.project.demo.persitance.model.PhotoU;
-import com.project.demo.persitance.model.PrivilegeModel;
-import com.project.demo.persitance.model.RoleModel;
-import com.project.demo.persitance.model.UserModel;
-import com.project.demo.repository.PrivilegeRepository;
-import com.project.demo.repository.RoleRepository;
-import com.project.demo.repository.UserRepository;
-import com.project.demo.service.PhotoUService;
-import com.project.demo.service.UserService;
+import com.sda.demo.common.util.AuthenticationBean;
+import com.sda.demo.persitance.dto.UserDto;
+import com.sda.demo.persitance.dto.files.ResponseFile;
+import com.sda.demo.persitance.dto.files.ResponseMessage;
+import com.sda.demo.persitance.model.PhotoU;
+import com.sda.demo.persitance.model.PrivilegeModel;
+import com.sda.demo.persitance.model.RoleModel;
+import com.sda.demo.persitance.model.UserModel;
+import com.sda.demo.repository.PrivilegeRepository;
+import com.sda.demo.repository.RoleRepository;
+import com.sda.demo.repository.UserRepository;
+import com.sda.demo.service.PhotoUService;
+import com.sda.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

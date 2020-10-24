@@ -1,4 +1,4 @@
-package com.project.demo.persitance.dto;
+package com.sda.demo.persitance.dto;
 
 public class PromoCodeDto {
     private long id;
